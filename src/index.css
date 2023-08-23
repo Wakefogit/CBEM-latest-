@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.myfont{
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Unbounded', cursive;
+}
+
+.subtitle{
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Spline Sans Mono', monospace;
+    font-family: 'Unbounded', cursive;
+}
