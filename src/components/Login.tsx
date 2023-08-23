@@ -62,7 +62,7 @@ const Login = () => {
   };
   return (
     <>
-      <section className="bg-gray-50 bg-[url('/src/assets/images/bg.png')] bg-cover drop-shadow-2xl ">
+      <section className="bg-gray-50 bg_log bg-cover">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 drop-shadow-lg">
           <div className="w-full bg-white rounded-sm shadow dark:border md:mt-0 sm:max-w-md xl:p-0 bg-gradient-to-r from-white-600 to-white-500 dark:border-gray-700 opacity-95">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -126,18 +126,18 @@ const Login = () => {
                   </div>
                   <a
                     href="#"
-                    className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500 text-gray-600"
+                    className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500 text-gray-600 subtitle"
                   >
                     Forgot password?
                   </a>
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-purple-900 py-2 text-white rounded"
+                  className="w-full bg-purple-700 py-2 text-white rounded subtitle hover:bg-purple-900"
                 >
                   Sign in
                 </button>
-                <p className="text-gray-500 dark:text-gray-400 text-right font-si subtitle">
+                <p className="text-gray-500 dark:text-gray-400 text-right font-si ">
                   Powered by <span className="dark:text-gray-500">WAKEFLO</span>
                 </p>
               </form>

@@ -8,7 +8,12 @@
 }
 
 .subtitle{
-    font-family: 'Roboto', sans-serif;
+   
     font-family: 'Spline Sans Mono', monospace;
-    font-family: 'Unbounded', cursive;
+    
+}
+.bg_log{
+    background-image: linear-gradient(#1a1818a6, #17171a82),url(/src/assets/images/bg.png);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
