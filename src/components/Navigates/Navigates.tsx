@@ -29,6 +29,7 @@ const Navigates = () => {
           <Route path="/" element={<Login></Login>}></Route>
           <Route path="/forget-password" element={<ForgetPassword></ForgetPassword>}></Route>
           <Route path="/verify-otp" element={<VerifyOtp></VerifyOtp>}></Route>
+          <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
           <Route
             path="/home"
             element={
