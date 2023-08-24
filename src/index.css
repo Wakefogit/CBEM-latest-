@@ -1,19 +1,24 @@
 @tailwind base;
+
 @tailwind components;
+
 @tailwind utilities;
 
-.myfont{
-    font-family: 'Roboto', sans-serif;
-    font-family: 'Unbounded', cursive;
+.myfont {
+  font-family: "Roboto", sans-serif;
+
+  font-family: "Unbounded", cursive;
 }
 
-.subtitle{
-   
-    font-family: 'Spline Sans Mono', monospace;
-    
+.subtitle {
+  font-family: "Spline Sans Mono", monospace;
 }
-.bg_log{
-    background-image: linear-gradient(#1a1818a6, #17171a82),url(/src/assets/images/bg.png);
-    background-size: cover;
-    background-repeat: no-repeat;
+
+.bg_log {
+  background-image: linear-gradient(#1a1818a6, #17171a82),
+    url(/src/assets/images/bg.png);
+
+  background-size: cover;
+
+  background-repeat: no-repeat;
 }

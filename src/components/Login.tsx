@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { setAuthToken, setUser } from "../localStorage";
 import { Card, Form, Input, Button, message, Row, Col } from "antd";
 import axios from "axios";
+import { Link } from "react-router-dom";
 const Login = () => {
   const [form] = Form.useForm();
   const [loginData, setLoginData] = useState({
@@ -10,8 +11,7 @@ const Login = () => {
   });
   const loginApi = () => {
     let email = loginData?.email;
-    let password = loginData?.password;
-    console.log(email, password, "###########");
+    let password = loginData?.password;  
 
     // fetch("http://192.168.0.104:8080/login", {
     //   method: "POST",
@@ -159,12 +159,12 @@ const Login = () => {
                       </label>
                     </div>
                   </div>
-                  <a
-                    href="#"
+                  <Link
+                    to="/forget-password"
                     className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500 text-gray-600 subtitle"
                   >
                     Forgot password?
-                  </a>
+                  </Link>
                 </div>
                 <button
                   type="submit"

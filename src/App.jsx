@@ -1,8 +1,10 @@
-import Login from "./components/Login";
+
+import Navigates from "./components/Navigates/Navigates";
 export default function App() {
   return (
     <>
-      <Login />
+     <Navigates></Navigates>
+      {/* <ForgetPassword></ForgetPassword> */}
     </>
   );
 }
