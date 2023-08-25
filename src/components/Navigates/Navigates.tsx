@@ -9,6 +9,7 @@ import { getUser } from "../../localStorage";
 
 import ForgetPassword from "../Login/ForgetPassword";
 import VerifyOtp from "../Login/VerifyOtp";
+import ChangePassword from "../Login/ChangePassword";
 const Navigates = () => {
   const user = getUser();
   const haveAccess = (screen: any) => {
@@ -30,6 +31,7 @@ const Navigates = () => {
           <Route path="/forget-password" element={<ForgetPassword></ForgetPassword>}></Route>
           <Route path="/verify-otp" element={<VerifyOtp></VerifyOtp>}></Route>
           <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
+          <Route path="/changepassword" element={<ChangePassword></ChangePassword>}></Route>
           <Route
             path="/home"
             element={

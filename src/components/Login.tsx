@@ -54,7 +54,7 @@ const Login = () => {
             window.location.href = "/dashboard";
           }
         } else {
-          alert(data.error);
+          message.warning(data.error);
         }
       });
   };

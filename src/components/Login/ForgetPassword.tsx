@@ -10,7 +10,6 @@ const ForgetPassword = () => {
   });
   const otpHandler = () => {
     const apiUrl = "http://192.168.0.104:8080/forgotpassword";
-
     axios
       .post(
         apiUrl,
@@ -26,10 +25,11 @@ const ForgetPassword = () => {
       .then((response) => response.data)
       .then((data) => {
         if (data.message) {   
+            const email = encodeURIComponent(loginemail.email);
             message.success(data.message)      
-            navigate("/verify-otp")
+            navigate(`/verify-otp?email=${email}`);
         } else {
-          alert(data.error);
+            message.warning(data.error);
         }
       });
   };
