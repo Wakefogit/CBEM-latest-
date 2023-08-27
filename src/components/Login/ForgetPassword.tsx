@@ -82,7 +82,7 @@ const ForgetPassword = () => {
                 >
                   Send OTP
                 </button>
-                <p className="text-sm font-light text-gray-500 dark:text-gray-400 subtitle text-sm">
+                <p className=" font-light text-gray-500 dark:text-gray-400 subtitle text-sm">
                   Do you want to login ?{" "}
                   <Link
                     to="/"

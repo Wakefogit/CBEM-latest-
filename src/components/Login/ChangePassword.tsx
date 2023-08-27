@@ -1,13 +1,49 @@
-import React from "react";
-import { useLocation,useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { message } from "antd";
 const ChangePassword = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
-  const email = queryParams.get("email"); 
-  console.log(email,"Email from change password")
-  const passwordHandler = () =>{
-console.log(email,"########")
-  }
+  const email = queryParams.get("email");
+  const [password, setPassword] = useState({
+    newpassword: "",
+    confirmpassword: "",
+  });
+  console.log(email, "Email from change password");
+  const passwordHandler = (event: any) => {
+    event.preventDefault();
+    if (password.newpassword !== password.confirmpassword) {
+      message.warning("Passwords do not match");
+      return;
+    }
+    const apiUrl = "http://192.168.0.104:8080/resetpassword";
+
+    axios
+      .post(
+        apiUrl,
+        {
+          email: email,
+          newpassword: password?.newpassword,
+          confirmpassword: password?.confirmpassword,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => response.data)
+      .then((data) => {
+        if (data.message) {
+          message.success(data.message);
+          navigate("/");
+        } else {
+          message.warning(data.error);
+        }
+      });
+  };
   return (
     <div>
       <>
@@ -25,7 +61,7 @@ console.log(email,"########")
                   symbol,minimum length is 12 characters.
                 </small>
 
-                <form className="space-y-4 md:space-y-6" action="#">
+                <form className="space-y-4 md:space-y-6">
                   <div>
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray myfont">
                       New Password
@@ -36,6 +72,12 @@ console.log(email,"########")
                       id="new_password"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black  dark:focus:ring-blue-500 dark:focus:border-blue-500 subtitle"
                       placeholder="••••••••"
+                      onChange={(e) =>
+                        setPassword({
+                          ...password,
+                          newpassword: e?.target?.value,
+                        })
+                      }
                     />
                   </div>
 
@@ -49,27 +91,22 @@ console.log(email,"########")
                       id="confirm_password"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black  dark:focus:ring-blue-500 dark:focus:border-blue-500 subtitle"
                       placeholder="••••••••"
+                      onChange={(e) =>
+                        setPassword({
+                          ...password,
+                          confirmpassword: e?.target?.value,
+                        })
+                      }
                     />
                   </div>
 
-                  <button onClick={passwordHandler}
+                  <button
+                    onClick={passwordHandler}
                     type="submit"
                     className="w-full bg-purple-700 py-2 text-white rounded subtitle hover:bg-purple-900"
                   >
                     Submit
                   </button>
-
-                  <p className="text-sm font-light text-gray-500 dark:text-gray-400 subtitle text-sm">
-                    Do you want to login ?{" "}
-                    <a
-                      href="#"
-                      className="font-medium text-primary-600 hover:underline dark:text-primary-500 "
-                    >
-                      <span className="font-bold text-gray-500 hover:text-violet-600 hover:underline">
-                        Click here
-                      </span>
-                    </a>
-                  </p>
                 </form>
               </div>
             </div>
