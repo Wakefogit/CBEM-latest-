@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { message } from "antd";
@@ -7,15 +7,40 @@ const VerifyOtp = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
-  const email = queryParams.get("email") ?? ""; // Provide a default empty string
+  const email = queryParams.get("email") ?? "";
 
   const [enteredOtp, setEnteredOtp] = useState({
     otpValue: "",
   });
 
+  const [remainingTime, setRemainingTime] = useState(30);
+  const [isButtonVisible, setIsButtonVisible] = useState(false);
+  const resendOtpHandler = () => {
+    const apiUrl = "http://192.168.1.16:8080/forgotpassword";
+    axios
+      .post(
+        apiUrl,
+        {
+          email: email,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => response.data)
+      .then((data) => {
+        if (data.message) {
+          message.success(data.message);
+        } else {
+          message.warning(data.error);
+        }
+      });
+  };
   const submitHandler = (e: any) => {
     e.preventDefault();
-    const apiUrl = "http://192.168.0.104:8080/otp";
+    const apiUrl = "http://192.168.1.16:8080/otp";
 
     axios
       .post(
@@ -41,6 +66,19 @@ const VerifyOtp = () => {
       });
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (remainingTime > 0) {
+        setRemainingTime(remainingTime - 1);
+      } else {
+        clearInterval(interval);
+        setIsButtonVisible(true);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [remainingTime]);
+
   return (
     <>
       <section className="bg-gray-50 bg_log bg-cover h-screen flex items-center justify-center">
@@ -52,7 +90,7 @@ const VerifyOtp = () => {
               </h1>
 
               <small className="text-sm text-gray-400 subtitle">
-                An 6 digits code as been sent to sr*****@*****.com{" "}
+                An 6 digits code has been sent via email
               </small>
 
               <form className="space-y-4 md:space-y-6">
@@ -73,26 +111,27 @@ const VerifyOtp = () => {
                   />
                 </div>
 
+                {!isButtonVisible ? (
+                  <p className="text-sm font-light text-gray-500 dark:text-gray-400 subtitle">
+                    Resend OTP in {remainingTime} seconds
+                  </p>
+                ) : (
+                  <button
+                    type="button"
+                    className="w-full text-gray-700 rounded subtitle hover:underline hover:text-purple-900"
+                    onClick={resendOtpHandler}
+                  >
+                    Resend OTP
+                  </button>
+                )}
+
                 <button
                   type="submit"
                   className="w-full bg-purple-700 py-2 text-white rounded subtitle hover:bg-purple-900"
                   onClick={submitHandler}
                 >
-                  Submit
+                  Verify
                 </button>
-
-                <p className="text-sm font-light text-gray-500 dark:text-gray-400 subtitle text-sm">
-                  Didn't you recieve any code ?{" "}
-                  {/* <a
-                    href="#"
-                    className="font-medium text-primary-600 hover:underline dark:text-primary-500 "
-                  >
-                    <span className="font-bold text-gray-500 hover:text-violet-600 hover:underline">
-                      {" "}
-                      Resend OTP
-                    </span>
-                  </a> */}
-                </p>
               </form>
             </div>
           </div>

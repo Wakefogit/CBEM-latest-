@@ -43,11 +43,8 @@ const Login = () => {
       .then((data) => {
         if (data.token) {
           // Assuming setUser and setAuthToken functions are defined
-
           setUser(data.user);
-
           setAuthToken(data.token);
-
           if (data.user.roleId === 1) {
             window.location.href = "/home";
           } else {

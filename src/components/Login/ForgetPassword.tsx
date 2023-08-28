@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import axios from "axios";
-import { Card, Form, Input, Button, message} from "antd";
+import { Card, Form, Input, Button, message } from "antd";
+import { setOtpVerified } from "../Store/Action/jindalAction";
 const ForgetPassword = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [loginemail, setloginemail] = useState({
     email: "",
   });
   const otpHandler = () => {
-    const apiUrl = "http://192.168.0.104:8080/forgotpassword";
+    const apiUrl = "http://192.168.1.16:8080/forgotpassword";   
     axios
       .post(
         apiUrl,
@@ -24,12 +27,13 @@ const ForgetPassword = () => {
       )
       .then((response) => response.data)
       .then((data) => {
-        if (data.message) {   
-            const email = encodeURIComponent(loginemail.email);
-            message.success(data.message)      
-            navigate(`/verify-otp?email=${email}`);
+        if (data.message) {
+          const email = encodeURIComponent(loginemail.email);
+          message.success(data.message);
+          dispatch(setOtpVerified(true));
+          navigate(`/verify-otp?email=${email}`);
         } else {
-            message.warning(data.error);
+          message.warning(data.error);
         }
       });
   };
@@ -82,7 +86,7 @@ const ForgetPassword = () => {
                 >
                   Send OTP
                 </button>
-                <p className="text-sm font-light text-gray-500 dark:text-gray-400 subtitle text-sm">
+                <p className=" font-light text-gray-500 dark:text-gray-400 subtitle text-sm">
                   Do you want to login ?{" "}
                   <Link
                     to="/"
