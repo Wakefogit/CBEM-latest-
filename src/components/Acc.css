@@ -1,0 +1,46 @@
+/* .custom-css{
+    h-100 ,
+    w-44 ,
+    sm:h-10,
+} */
+
+  
+  .accordion-header {
+    
+    align-items: center;
+    justify-content: space-between;
+    /* padding: 10px; */
+    cursor: pointer;
+    
+  }
+  .accordion-header:hover{
+    
+  }
+  
+  .accord{
+    display: flex;
+   flex-direction: column;
+  }
+  
+  .accordion-content {
+    padding: 10px;
+    border: 1px solid #696767;
+    margin-bottom: 19px;
+    justify-content: space-between;
+
+  }
+  
+  .accordion-icon {
+   padding-left: 55px;
+   margin-left: 30px;
+   width: 15px;
+  }
+   .accordion-icon:hover{
+    width: 20px;
+    color: black;
+
+   }
+
+  
+  
+  

@@ -6,7 +6,11 @@ export default {
     "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        '100': '27px',
+      },
+    },
     fontSize: {
       xxs: "0.4rem",
       sm: "0.8rem",

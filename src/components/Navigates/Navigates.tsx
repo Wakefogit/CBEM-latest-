@@ -3,9 +3,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "../Login";
 import Home from "../Home/Home";
 import { routes } from "./NavigateAccess";
-import Dashboard from "../Dashboard/Dashboard";
+import Dashboard from "../Dashboard";
 import PrivateNavigates from "./PrivateNavigates";
 import { getUser } from "../../localStorage";
+
 
 import ForgetPassword from "../Login/ForgetPassword";
 import VerifyOtp from "../Login/VerifyOtp";
