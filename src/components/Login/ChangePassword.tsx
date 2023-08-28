@@ -18,7 +18,7 @@ const ChangePassword = () => {
       message.warning("Passwords do not match");
       return;
     }
-    const apiUrl = "http://192.168.0.104:8080/resetpassword";
+    const apiUrl = "http://192.168.1.16:8080/resetpassword";
 
     axios
       .post(

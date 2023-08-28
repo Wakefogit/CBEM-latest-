@@ -6,11 +6,18 @@ import { routes } from "./NavigateAccess";
 import Dashboard from "../Dashboard/Dashboard";
 import PrivateNavigates from "./PrivateNavigates";
 import { getUser } from "../../localStorage";
-
+import { useSelector } from "react-redux";
 import ForgetPassword from "../Login/ForgetPassword";
 import VerifyOtp from "../Login/VerifyOtp";
 import ChangePassword from "../Login/ChangePassword";
 const Navigates = () => {
+  // const jindalReducerState = useSelector(
+  //   (state: any) => state.jindalReducer
+  // );
+  // const {isOtpVerified} = jindalReducerState
+
+  const isOTPVerified = useSelector((state: any) => state.isOtpVerified);
+  console.log(isOTPVerified, "this is from navigates");
   const user = getUser();
   const haveAccess = (screen: any) => {
     if (screen === "/home") {
@@ -28,10 +35,18 @@ const Navigates = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login></Login>}></Route>
-          <Route path="/forget-password" element={<ForgetPassword></ForgetPassword>}></Route>
-          <Route path="/verify-otp" element={<VerifyOtp></VerifyOtp>}></Route>
+          <Route
+            path="/forget-password"
+            element={<ForgetPassword></ForgetPassword>}
+          ></Route>
+          {isOTPVerified && (
+            <Route path="/verify-otp" element={<VerifyOtp></VerifyOtp>}></Route>
+          )}
           <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
-          <Route path="/changepassword" element={<ChangePassword></ChangePassword>}></Route>
+          <Route
+            path="/changepassword"
+            element={<ChangePassword></ChangePassword>}
+          ></Route>
           <Route
             path="/home"
             element={
@@ -51,7 +66,7 @@ const Navigates = () => {
                 {haveAccess("/dashboard") === true ? (
                   <Dashboard></Dashboard>
                 ) : (
-                    <p>Access Denied</p>
+                  <p>Access Denied</p>
                 )}
               </PrivateNavigates>
             }

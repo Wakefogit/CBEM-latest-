@@ -7,17 +7,11 @@ const setUser = (user: any) => {
  
 
 const getUser = () => {
-
     let user: any = localStorage.getItem("user")
-
     if(user != "undefined"){
-
         return JSON.parse(user);
-
     }else{
-
         return null;
-
     }
 
 }
