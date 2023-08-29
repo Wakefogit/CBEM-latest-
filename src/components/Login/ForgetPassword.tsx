@@ -12,7 +12,7 @@ const ForgetPassword = () => {
     email: "",
   });
   const otpHandler = () => {
-    const apiUrl = "http://192.168.1.16:8080/forgotpassword";   
+    const apiUrl = "http://192.168.0.104:8080/forgotpassword";   
     axios
       .post(
         apiUrl,
