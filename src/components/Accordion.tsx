@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faAnglesDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import "./Acc.css";
 
 const Accordion = ({ title, content }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +15,7 @@ const Accordion = ({ title, content }) => {
       <div className="accordion-header" onClick={toggleAccordion}>
         {title}
         <FontAwesomeIcon
-          icon={isOpen ? faMinus : faPlus}
+          icon={isOpen ?  'faAnglesDown': 'faAngleUp'}
           className="accordion-icon"
         />
       </div>

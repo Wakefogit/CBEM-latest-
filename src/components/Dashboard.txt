@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 const Dashboard = () => {
   return (
     <>
+     {/* <Navbar></Navbar> */}
       <button
         data-drawer-target="logo-sidebar"
         data-drawer-toggle="logo-sidebar"
@@ -153,7 +154,7 @@ const Dashboard = () => {
                     title="Report"
                     content={
                       <ul>
-                        <li>hi</li>
+                        <li className=" border-b border-black ">hi</li>
                         <li>hello</li>
                         <li>hi</li>
                       </ul>
@@ -470,7 +471,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <Navbar></Navbar>
+     
     </>
   );
 };

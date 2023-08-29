@@ -1,0 +1,89 @@
+// "use client";
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
+import NavLinks from '@components/Navbar/NavLinks';
+import Button from '@components/Navbar/Button';
+
+const Nav = () => {
+
+  const [open, setOpen] = useState(false);
+
+  return (
+    <nav className='navBar_container'>
+      <div className="navBar flex items-center font-medium justify-around">
+        <div className="z-50 p-5 md:w-auto w-full flex justify-between">
+          <div className='flex gap-2 items-center'>
+            <img src='/assets/images/LapyPhone.png' alt="logo" className="md:cursor-pointer h-9" />
+            <p className='md:cursor-pointer logo_text items-center'>Lapyphone</p>
+          </div>
+          <div className="text-3xl md:hidden" onClick={() => setOpen(!open)}>
+            <ion-icon name={`${open ? "close" : "menu"}`}></ion-icon>
+          </div>
+        </div>
+        <ul className="md:flex hidden items-center gap-4 font-[Poppins]">
+          <li className='hover:text-hoverColor duration-300'>
+            <Link href="/" className="py-7 px-3 inline-block">
+              Home
+            </Link>
+          </li>
+          <NavLinks  />
+          <li className='hover:text-hoverColor duration-300'>
+            <Link href="/" className="py-7 px-3 inline-block">
+              Deals
+            </Link>
+          </li>
+          <li className='hover:text-hoverColor duration-300'>
+            <Link href="/" className="py-7 px-3 inline-block">
+              What's New
+            </Link>
+          </li>
+          <li className='hover:text-hoverColor duration-300'>
+            <Link href="/" className="py-7 px-3 inline-block">
+              Delivery
+            </Link>
+          </li>
+        </ul>
+        <div className="md:block hidden">
+          <Button />
+        </div>
+        {/* Mobile nav */}
+        <ul
+          className={`
+            md:hidden bg_transparent fixed w-full overflow-y-auto top-20 bottom-0 pl-4
+            duration-500 ${open ? "left-0" : "left-[-100%]"}
+          `} //top-0 bottom-0 overflow-y-auto
+        >
+          <li>
+            <Link href="/" className="py-7 px-3 inline-block">
+              Home
+            </Link>
+          </li>
+          <NavLinks />
+          <li className='hover:text-hoverColor duration-300'>
+            <Link href="/" className="py-7 px-3 inline-block">
+              Deals
+            </Link>
+          </li>
+          <li className='hover:text-hoverColor duration-300'>
+            <Link href="/" className="py-7 px-3 inline-block">
+              What's New
+            </Link>
+          </li>
+          <li className='hover:text-hoverColor duration-300'>
+            <Link href="/" className="py-7 px-3 inline-block">
+              Delivery
+            </Link>
+          </li>
+          <div className="py-5">
+            <Button />
+          </div>
+        </ul>
+      </div>
+    </nav>
+  )
+}
+
+export default Nav
