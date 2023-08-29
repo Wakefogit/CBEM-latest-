@@ -42,7 +42,7 @@ const Navigates = () => {
           {isOTPVerified && (
             <Route path="/verify-otp" element={<VerifyOtp></VerifyOtp>}></Route>
           )}
-          <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
+          <Route path="/dashboard" element={  <PrivateNavigates><Dashboard></Dashboard></PrivateNavigates>}></Route>
           <Route
             path="/changepassword"
             element={<ChangePassword></ChangePassword>}

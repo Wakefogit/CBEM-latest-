@@ -16,7 +16,7 @@ const VerifyOtp = () => {
   const [remainingTime, setRemainingTime] = useState(30);
   const [isButtonVisible, setIsButtonVisible] = useState(false);
   const resendOtpHandler = () => {
-    const apiUrl = "http://192.168.1.16:8080/forgotpassword";
+    const apiUrl = "http://192.168.0.104:8080/forgotpassword";
     axios
       .post(
         apiUrl,
@@ -40,7 +40,7 @@ const VerifyOtp = () => {
   };
   const submitHandler = (e: any) => {
     e.preventDefault();
-    const apiUrl = "http://192.168.1.16:8080/otp";
+    const apiUrl = "http://192.168.0.104:8080/otp";
 
     axios
       .post(

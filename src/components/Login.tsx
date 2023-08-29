@@ -1,29 +1,37 @@
-import React, { useState } from "react";
-import { setAuthToken, setUser } from "../localStorage";
+import React, { useState,useEffect } from "react";
+import { getUser, setAuthToken, setUser } from "../localStorage";
 import { Card, Form, Input, Button, message, Row, Col } from "antd";
 import axios from "axios";
 import { Link } from "react-router-dom";
 const Login = () => {
   const [form] = Form.useForm();
-  const [loginData, setLoginData] = useState({
-    email: "",
-    password: "",
+  const [loginData, setLoginData] = useState(() => {
+    const rememberMeFromStorage = localStorage.getItem('rememberMe') === 'true';
+    const rememberMes = rememberMeFromStorage === true; // Parse the string to a boolean
+    
+    const userFromStorage = getUser();  
+    return {
+      email: rememberMes ? userFromStorage?.email : '',
+      password: rememberMes ? '********' : '', 
+    };
   });
+  useEffect(() => {
+    const rememberMeFromStorage = localStorage.getItem('rememberMe') === 'true';
+    const rememberMes = rememberMeFromStorage === true; // Parse the string to a boolean
+    const userFromStorage = getUser();
+    console.log('rememberMeFromStorage:', rememberMeFromStorage);
+    console.log('userFromStorage:', userFromStorage);
+    setLoginData({
+      email: rememberMes ? userFromStorage?.email : '',
+      password: rememberMes ? userFromStorage?.password : '',
+    });
+  }, []);
+  
+  const [rememberMe, setRememberMe] = useState(false);
+
   const loginApi = () => {
     let email = loginData?.email;
-    let password = loginData?.password;  
-
-    // fetch("http://192.168.0.104:8080/login", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     email: email,
-    //     password: password,
-    //   }),
-
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // })
+    let password = loginData?.password;
 
     const apiUrl = "http://192.168.0.104:8080/login";
     axios
@@ -45,6 +53,14 @@ const Login = () => {
           // Assuming setUser and setAuthToken functions are defined
           setUser(data.user);
           setAuthToken(data.token);
+          if (rememberMe) {
+            localStorage.setItem('rememberMe', 'true'); // Store rememberMe in local storage
+          } else {
+            localStorage.removeItem('rememberMe');
+          }
+          if (rememberMe) {
+            setLoginData({ ...loginData, email: data.user.email });
+          }
           if (data.user.roleId === 1) {
             window.location.href = "/home";
           } else {
@@ -66,10 +82,6 @@ const Login = () => {
               </h1>
               <Form
                 className="space-y-4 md:space-y-6"
-                // onSubmit={(e: any) => {
-                //   e.preventDefault();
-                //   loginApi();
-                // }}
                 onFinish={() => loginApi()}
                 form={form}
               >
@@ -97,6 +109,7 @@ const Login = () => {
                       type="email"
                       name="email"
                       autoComplete="off"
+                      value={loginData.email}
                       onChange={(e) =>
                         setLoginData({ ...loginData, email: e?.target?.value })
                       }
@@ -129,6 +142,7 @@ const Login = () => {
                       name="password"
                       id="password"
                       autoComplete="off"
+                      value={loginData.password} 
                       onChange={(e) =>
                         setLoginData({
                           ...loginData,
@@ -148,6 +162,8 @@ const Login = () => {
                         aria-describedby="remember"
                         type="checkbox"
                         className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                        checked={rememberMe}
+                        onChange={(e) => setRememberMe(e.target.checked)}
                       />
                     </div>
                     <div className="ml-3 text-sm">
